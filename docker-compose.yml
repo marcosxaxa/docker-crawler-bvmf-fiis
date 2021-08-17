@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  app:
+    build: /app/
+  networks:
+    - crawler-app
+  environment:
+    - DB_URL: db
+    - DB_PORT: db.ports
+
+  db:
+    image: "mongo"
+    ports:
+      - "27025:27017"
+    volumes:
+      - "/home/marcos:/data/db"
+    networks:
+      - crawler-app
+
+networks:
+  crawler-app:
+    driver: bridge
