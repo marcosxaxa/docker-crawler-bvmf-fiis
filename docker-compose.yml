@@ -1,21 +1,26 @@
-version: "3.9"
+version: "3.3"
 services:
-  app:
-    build: /app/
-  networks:
-    - crawler-app
-  environment:
-    - DB_URL: db
-    - DB_PORT: db.ports
-
   db:
     image: "mongo"
+    container_name: "mongodb_crawler"
     ports:
       - "27025:27017"
     volumes:
-      - "/home/marcos:/data/db"
+      - /data/mongodb:/data/db
     networks:
       - crawler-app
+
+  app:
+    build: app/
+    image: marcosxaxa/daily-crawler
+    container_name: daily_crawler
+    networks:
+      - crawler-app
+    depends_on:
+      - db
+    environment:
+      DB_URL: "db"
+      DB_PORT: 27017
 
 networks:
   crawler-app:
