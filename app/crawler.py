@@ -63,21 +63,26 @@ def add_price_data_to_table(stock_list):
             price = round(price_fii["eod_price"],2)
 
             conn = mongo.db.daily_info
-        
-            item = {
-                '_id': uid_fii,
-                'date': date,
-                'name': name,
-                'current_price': price,
-            }
-            
-            conn.replace_one({'_id': uid_fii}, item, upsert=True)
 
-            print("price data for {} added - {}". format(name,now))
+            if conn.find_one({"_id": uid_fii}):
+                conn.update_one({'_id': name}, {'$inc': {'current_price': price}})
+                print("Price for {} updated!".format(item))
+            else:
+                item = {
+                    '_id': uid_fii,
+                    'date': date,
+                    'name': name,
+                    'current_price': price,
+                }
+                
+                conn.replace_one({'_id': uid_fii}, item, upsert=True)
+
+                print("Price data for {} added - {}". format(name,now))
         except Exception as e:
             print(e)
             print("There is no info for this fii - {}".format(now))
 
 
-all_fiis = get_fii_list()
-add_price_data_to_table(all_fiis)
+# all_fiis = get_fii_list()
+# add_price_data_to_table(all_fiis)
+
