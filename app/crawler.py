@@ -83,6 +83,6 @@ def add_price_data_to_table(stock_list):
             print("There is no info for this fii - {}".format(now))
 
 
-# all_fiis = get_fii_list()
-# add_price_data_to_table(all_fiis)
+all_fiis = get_fii_list()
+add_price_data_to_table(all_fiis)
 
