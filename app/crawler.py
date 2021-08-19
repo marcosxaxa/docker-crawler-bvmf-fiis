@@ -51,7 +51,6 @@ def get_price(fii_ticker):
 
 def add_price_data_to_table(stock_list):
     for item in stock_list:
-        print("Will add {} - {}".format(item,now))
         try:
             price_fii = get_price(item)
 
@@ -68,6 +67,7 @@ def add_price_data_to_table(stock_list):
                 conn.update_one({'_id': name}, {'$inc': {'current_price': price}})
                 print("Price for {} updated!".format(item))
             else:
+                print("Will add {} - {}".format(item,now))
                 item = {
                     '_id': uid_fii,
                     'date': date,
