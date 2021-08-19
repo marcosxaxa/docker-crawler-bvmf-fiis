@@ -64,6 +64,7 @@ def add_price_data_to_table(stock_list):
             conn = mongo.db.daily_info
 
             if conn.find_one({"_id": uid_fii}):
+                print("Price is {}".format(price))
                 conn.update_one({'_id': name}, {'$set': {'current_price': price}})
                 print("Price for {} updated!".format(item))
             else:
