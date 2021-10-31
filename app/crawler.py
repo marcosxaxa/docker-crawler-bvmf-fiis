@@ -85,3 +85,6 @@ def add_price_data_to_table(stock_list):
 
 all_fiis = get_fii_list()
 add_price_data_to_table(all_fiis)
+
+
+#This is a test
