@@ -1,13 +1,13 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.6-slim'
+            image 'python'
         }
     }
     stages {
         stage('Test'){
             steps{
-                sh "python -V"
+                sh "ls -la"
                 sleep 15
             }
         }
