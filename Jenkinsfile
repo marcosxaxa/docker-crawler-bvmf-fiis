@@ -4,6 +4,7 @@ pipeline {
             image 'python'
         }
     }
+    
     stages {
         stage('Test'){
             steps{
