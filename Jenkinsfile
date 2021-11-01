@@ -8,6 +8,7 @@ pipeline {
         stage('Test'){
             steps{
                 sh "python -V"
+                sleep 15
             }
         }
     }
