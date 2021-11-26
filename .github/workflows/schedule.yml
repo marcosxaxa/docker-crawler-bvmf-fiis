@@ -7,7 +7,7 @@ on:
 jobs:
   fetch:
     runs-on: self-hosted
-      steps:
-        - name: Run daily container
-          run: |
-            docker run -it -d -e DB_USERNAME=${{ secrets.DB_USERNAME }} -e DB_NAME=${{ secrets.DB_NAME }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} ${{ secrets.DOCKER_HUB_USERNAME }}/daily-crawler:latest
+    steps:
+      - name: Run daily container
+        run: |
+          docker run -it -d -e DB_USERNAME=${{ secrets.DB_USERNAME }} -e DB_NAME=${{ secrets.DB_NAME }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} ${{ secrets.DOCKER_HUB_USERNAME }}/daily-crawler:latest
