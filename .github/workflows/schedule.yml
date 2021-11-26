@@ -2,7 +2,7 @@ name: Fetch data
 on:
   schedule:
   # runs from 10am to 7pm Brazil's time
-    - cron: '*/15 7-16 * * 1-5'
+    - cron: '*/15 13-22 * * 1-5'
       branches: [main]
 
 jobs:
