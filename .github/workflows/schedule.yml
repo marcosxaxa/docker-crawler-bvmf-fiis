@@ -1,4 +1,4 @@
-name: Fetch data every 15min and save to mongodg
+name: Fetch data
 on:
   schedule:
     - cron: '*/15 10-19 * * 1-5'

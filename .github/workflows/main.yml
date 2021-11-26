@@ -36,6 +36,7 @@ jobs:
 
   run:
     runs-on: self-hosted
+    needs: build
     steps:
       - name: Run docker container locally
         run: |
