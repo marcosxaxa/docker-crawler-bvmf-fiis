@@ -29,7 +29,14 @@ jobs:
           context: app/
           file: app/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/daily-crawler:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/daily-crawler:${{ github.run_number }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  run:
+    runs-on: self-hosted
+    steps:
+      - name: Run docker container locally
+        run: |
+          docker run -it -d -e DB_USERNAME=${{ secrets.DB_USERNAME }} -e DB_NAME=${{ secrets.DB_NAME }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} ${{ secrets.DOCKER_HUB_USERNAME }}/daily-crawler:${{ github.run_number }}
