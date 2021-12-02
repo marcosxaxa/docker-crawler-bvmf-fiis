@@ -6,6 +6,8 @@ from .Mongo import MongoConnect
 
 class Crawler(MongoConnect):
 
+    '''This is a docstring '''
+
     # Function to retrieve a list of fiis and save it to dynamoDB
     now = datetime.now()
     today = now.strftime("%Y-%m-%d")
@@ -42,7 +44,8 @@ class Crawler(MongoConnect):
         base_url = 'https://statusinvest.com.br/fundos-imobiliarios/'
         URL = base_url + fii_ticker.lower()
         headers = {
-            'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:88.0) Gecko/20100101 Firefox/88.0'}
+            'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; \
+                 Linux x86_64; rv:88.0) Gecko/20100101 Firefox/88.0'}
         content = requests.get(URL, headers=headers)
         soup = BeautifulSoup(content.text, 'html.parser')
         for quote in soup.find(

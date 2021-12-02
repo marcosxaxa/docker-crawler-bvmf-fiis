@@ -1,8 +1,10 @@
-from boto3 import client
-from pymongo import MongoClient
 import os
+from pymongo import MongoClient
 
 class MongoConnect():
+
+    '''Docstring for the class'''
+
     username = os.environ['DB_USERNAME']
     password = os.environ['DB_PASSWORD']
     db_name = os.environ['DB_NAME']
@@ -11,8 +13,8 @@ class MongoConnect():
         pass
 
     def connect(self):
-        client = MongoClient('mongodb+srv://{}:{}@fii-api.gnuy4.mongodb.net/{}?retryWrites=true&w=majority'.format(self.username,self.password,self.db_name))
-        db = client.dev.daily_info
-        return db
-
-
+        client = MongoClient \
+            (f'mongodb+srv://{self.username}:{self.password} \
+            @fii-api.gnuy4.mongodb.net/{self.db_name}?retryWrites=true&w=majority')
+        db_conn = client.dev.daily_info
+        return db_conn
