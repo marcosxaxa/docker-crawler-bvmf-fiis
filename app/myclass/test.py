@@ -1,15 +1,20 @@
 import unittest
 
-import Crawler
 
-class TestGetFii(unittest.TestCase):
-    def test_get_fii(self):
-        """
-        Test the get fii func
-        """
+from Crawler import Crawler
 
-        fii_list = Crawler.Crawler.get_fii_list(self)
-        self.assertIn("BCFF11", fii_list)
+
+class TestFiis(unittest.TestCase,Crawler):
+
+    def test_list_fiis(self):
+        fiis_list = Crawler.get_fii_list(self)
+        self.assertIn("BCFF11", fiis_list)
+
+    def test_get_price(self):
+        ticker = "bcff11"
+        fii_price = Crawler.get_price(self,ticker)
+        print(fii_price)
+        assert type(fii_price) is dict 
 
 if __name__ == '__main__':
     unittest.main()
