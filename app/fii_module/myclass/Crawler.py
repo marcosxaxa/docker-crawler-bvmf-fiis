@@ -1,10 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
-from Mongo import MongoConnect
-# import mongo
 
-class Crawler(MongoConnect):
+class Crawler():
 
     '''This is a docstring '''
 
@@ -58,7 +56,20 @@ class Crawler(MongoConnect):
         return fii_price
 
 
+
+class MongoClass(Crawler):
+
+    """
+    Class to add data to mongodb
+    """
+    from myclass.Mongo import MongoConnect
+
+    def __init__(self):
+        pass
+
     def add_price_data_to_table(self,stock_list):
+        from myclass.Mongo import MongoConnect
+
         for item in stock_list:
             print(item)
             try:
