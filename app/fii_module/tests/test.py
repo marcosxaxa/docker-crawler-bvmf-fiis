@@ -2,11 +2,15 @@ import os
 from unittest import TestCase, mock
 import unittest
 
+
+
+password = os.environ["DB_PASSWORD"] = "test"
+db_name = os.environ["DB_NAME"] = "test"
+username = os.environ["DB_USERNAME"] = "test"
+
 from myclass.Crawler import Crawler
 
-
 class TestFiis(TestCase,Crawler):
-    @mock.patch.dict(os.environ, {"DB_NAME": "dev", "DB_PASSWORD": "dev-user", "DB_USERNAME": "dev-user" })
 
     def test_list_fiis(self):
         username = ""
@@ -18,7 +22,7 @@ class TestFiis(TestCase,Crawler):
 
     def test_get_price(self):
         ticker = "bcff11"
-        fii_price = Crawler.get_price(self,ticker)
+        fii_price = Crawler.__get_price__(self,ticker)
         # print(fii_price)
         assert type(fii_price) is dict 
         assert fii_price["ticker"] == ticker
