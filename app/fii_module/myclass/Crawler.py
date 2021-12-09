@@ -1,8 +1,10 @@
+from datetime import datetime, timedelta
 import requests
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from myclass.Mongo import MongoConnect
 
-class Crawler():
+
+class Crawler(MongoConnect):
 
     '''This is a docstring '''
 
@@ -15,7 +17,7 @@ class Crawler():
 
 
     def __init__(self):
-        print("Created!")
+        print("Debug!")
 
 
     def get_fii_list(self):
@@ -37,7 +39,7 @@ class Crawler():
         return fii_table
 
 
-    def get_price(self,fii_ticker):
+    def __get_price__(self,fii_ticker):
         fii_price = {}
         base_url = 'https://statusinvest.com.br/fundos-imobiliarios/'
         URL = base_url + fii_ticker.lower()
@@ -57,23 +59,12 @@ class Crawler():
 
 
 
-class MongoClass(Crawler):
-
-    """
-    Class to add data to mongodb
-    """
-    from myclass.Mongo import MongoConnect
-
-    def __init__(self):
-        pass
-
     def add_price_data_to_table(self,stock_list):
-        from myclass.Mongo import MongoConnect
 
         for item in stock_list:
             print(item)
             try:
-                price_fii = self.get_price(item)
+                price_fii = self.__get_price__(item)
 
                 uid_base = str(self.now.strftime("%2d%m%y")) + '-'
                 uid_fii = uid_base + item.lower()
@@ -83,7 +74,7 @@ class MongoClass(Crawler):
                 price = round(price_fii["eod_price"],2)
 
                 conn = MongoConnect.connect(self)
-                print(conn)
+                
                 
                 if conn.find_one({"_id": uid_fii}):
                     conn.update_one({'_id': uid_fii}, {'$set': {'current_price': price}})
@@ -99,7 +90,7 @@ class MongoClass(Crawler):
                     
                     conn.replace_one({'_id': uid_fii}, item, upsert=True)
 
-                    print("Price data for {} added - {}". format(name,self.now))
+                    print(f"Price data for {name} added - {self.now}")
             except Exception as e:
                 print(e)
-                print("There is no info for this fii - {}".format(self.now))
+                print(f"There is no info for this fii - {self.now}")

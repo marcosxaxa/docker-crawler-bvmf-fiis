@@ -23,3 +23,5 @@ db = client.daily_info
 
 # client = pymongo.MongoClient("mongodb+srv://<username>:<password>@fii-api.gnuy4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 # db = client.test
+
+
