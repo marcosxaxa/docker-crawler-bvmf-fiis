@@ -2,8 +2,6 @@ import os
 from unittest import TestCase, mock
 import unittest
 
-
-
 password = os.environ["DB_PASSWORD"] = "test"
 db_name = os.environ["DB_NAME"] = "test"
 username = os.environ["DB_USERNAME"] = "test"

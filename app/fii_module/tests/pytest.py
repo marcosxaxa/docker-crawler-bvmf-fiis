@@ -13,4 +13,3 @@ def test_list_fiis():
     assert "BCFF11" in fiis_list
 
 
-test_list_fiis()
