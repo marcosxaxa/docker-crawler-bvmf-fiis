@@ -73,7 +73,7 @@ class Crawler(MongoConnect):
                 name = price_fii["ticker"].lower()
                 price = round(price_fii["eod_price"],2)
 
-                conn = MongoConnect.connect(self)
+                conn = MongoConnect.connect(self,"dev")
                 
                 
                 if conn.find_one({"_id": uid_fii}):

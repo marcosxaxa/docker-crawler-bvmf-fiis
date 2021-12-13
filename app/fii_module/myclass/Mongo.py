@@ -15,10 +15,10 @@ class MongoConnect():
         """
         pass
 
-    def connect(self):
+    def connect(self,collect):
         """
         Method to connect to a predefined mongodb atlas cluster. No arguments needed
         """
         client = MongoClient(f'mongodb+srv://{self.username}:{self.password}@fii-api.gnuy4.mongodb.net/{self.db_name}?retryWrites=true&w=majority')
-        db_conn = client.dev.daily_info
+        db_conn = f"client.dev.{collect}"
         return db_conn
