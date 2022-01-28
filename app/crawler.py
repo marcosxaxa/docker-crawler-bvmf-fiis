@@ -83,8 +83,31 @@ def add_price_data_to_table(stock_list):
             print("There is no info for this fii - {}".format(now))
 
 
+def update_historical_data(stock_list):
+    for item in stock_list:
+        print("Will add {} - {}".format(item,now))
+        try:
+            price_fii = get_price(item)
+            price = round(price_fii["eod_price"],2)
+            # Attributes definitions
+            uid_base = str(now.strftime("%2d%m%y")) + '-'
+            uid_fii = uid_base + item.lower()
+            date = current_day
+            name = item.lower()
+            
+
+            # Conection String
+            conn = mongo.db.time_series
+
+            conn.update_one({'name': name}, {'$push': {'historical': {'date': date, 'close': price}}})
+
+            
+            print("price data for {} added - {}". format(name,now))
+        except Exception as e:
+            print(e)
+            print("There is no info for this fii - {}".format(now))
+
 all_fiis = get_fii_list()
 add_price_data_to_table(all_fiis)
 
-#this is a test
 
